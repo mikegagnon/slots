@@ -104,6 +104,12 @@ class SlotMachine {
         //this.createReel(2);
 
         this.stage.update();
+
+        this.spin();
+    }
+
+    spin() {
+
     }
 }
 
