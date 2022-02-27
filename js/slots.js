@@ -51,6 +51,10 @@ class SlotMachine {
         }
 
         for (let i = 0; i < this.spinning.length; i++) {
+            if (!this.spinning[i]) {
+                continue;
+            }
+
             const topY = this.reels[i][0].y;
             const bottomY = this.reels[i][1].y;
 
@@ -73,7 +77,7 @@ class SlotMachine {
     }
 
     spin() {
-        this.spinning = [true, true, true];
+        this.spinning = [false, true, true];
 
 
     }
