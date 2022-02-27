@@ -17,21 +17,56 @@ const REEL_CONFIG = [
 class SlotMachine {
 
     constructor(slotsContainerId, slotsCanvasId, tryAgainContainerId) {
+        const canvas = document.getElementById(slotsCanvasId);
+        this.canvasWidth = canvas.width;
+        this.canvasHeight = canvas.height;
+        //this.spinReelDuration = 1000;
+        this.spinDeltaY = 1;
         this.slotsContainerId = slotsContainerId;
         this.slotsCanvasId = slotsCanvasId;
         this.tryAgainContainerId = tryAgainContainerId;
         this.images = {};
         this.reelWidth = undefined;
         this.reels = [];
+        this.reelHeight = [];
+        this.spinning = undefined;
         this.initStage();
         //this.loadBitmaps();
     }
 
     initStage() {
-        console.log(1);
         this.stage = new createjs.StageGL(this.slotsCanvasId);
         this.stage.setClearColor("#000");
-        createjs.Ticker.addEventListener("tick", this.stage);
+        createjs.Ticker.framerate = 30;
+
+        const THIS = this;
+        createjs.Ticker.addEventListener("tick", function(event) {
+            THIS.tick(event);
+        });
+    }
+
+    tick(event) {
+        if (this.spinning === undefined) {
+            return;
+        }
+
+        for (let i = 0; i < this.spinning.length; i++) {
+            this.reels[i][0].y += this.spinDeltaY;
+            this.reels[i][1].y += this.spinDeltaY;
+
+            if (this.reels[i][0].y > this.canvasHeight) {
+                this.reels[i][0].y = -this.reelHeight[i];// + this.canvasHeight;
+            }
+        }
+
+        this.stage.update();
+
+    }
+
+    spin() {
+        this.spinning = [true, true, true];
+
+
     }
 
     /*loadBitmap(name) {
@@ -65,19 +100,22 @@ class SlotMachine {
 
     }*/
 
-    createReel(index) {
-        const reelIds = REEL_CONFIG[index];
+    createReel(reelIndex, topOrBottom) {
+        const reelIds = REEL_CONFIG[reelIndex];
         const container = new createjs.Container();
         this.stage.addChild(container);
 
         let y = 0;
         let width = 0
+        let height = 0;
+        let bmp = undefined;
         for (const imgId of reelIds) {
-            const bmp = this.images[imgId].clone();
+            bmp = this.images[imgId].clone();
             container.addChild(bmp);
             bmp.y = y
             y += bmp.image.height;
             width = Math.max(width, bmp.image.width);
+            height += bmp.image.height; 
         }
 
         if (this.reelWidth == undefined) {
@@ -89,15 +127,21 @@ class SlotMachine {
             throw "Bad width";
         }
 
-        container.x = this.reelWidth * index;
+        this.reelHeight[reelIndex] = height;
+
+        if (topOrBottom === 1) {
+            container.y = -height;
+        }
+
+        container.x = this.reelWidth * reelIndex;
         return container;
     }
 
     run() {
-        console.log(3)
+        //console.log(3)
         for (let i = 0; i < REEL_CONFIG.length; i++) {
-            this.reels[i] = [this.createReel(i), this.createReel(i)];
-            this.reels[i][1].top = this.reels[i][0].height;            
+            this.reels[i] = [this.createReel(i, 0), this.createReel(i, 1)];
+            //this.reels[i][1].top = this.reels[i][0].height;            
         }
 
         //this.createReel(1);
@@ -108,9 +152,18 @@ class SlotMachine {
         this.spin();
     }
 
-    spin() {
+    /*spin() {
 
-    }
+        function handleComplete() {
+            console.log("complete")
+        }
+
+        const reelContainer = this.reels[0][0];
+        createjs.Tween.get(reelContainer)
+            .wait(1)
+            .to({y:100,}, 1000)
+            .call(handleComplete);
+    }*/
 }
 
 function main() {
@@ -133,7 +186,11 @@ function main() {
 
     queue.loadManifest(IMG_MANIFEST);
 
-
+    return machine;
 }
 
-main();
+const MACHINE = main();
+
+// function tick(event) {
+//     console.log(MACHINE.reels);
+// }
