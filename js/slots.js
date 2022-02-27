@@ -8,8 +8,8 @@ const IMG_MANIFEST = [
 
 const REEL_CONFIG = [
     ["2xBAR", "3xBAR", "7", "BAR", "Cherry"],
-    ["Cherry", "7", "2xBAR"],//, "BAR", "3xBAR"],
-    ["7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
+    ["Cherry", "7", "2xBAR", "3xBAR"],//, "BAR", "3xBAR"],
+    ["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
 //const IMG_WIDTH
@@ -87,9 +87,11 @@ class SlotMachine {
                 //this.spinning[i] = false;
             }*/
 
+            const targetY = this.spinTo[i].targetY;
+            const reelY = this.reels[i][0].y;
 
             console.log(this.numRotations[i], this.spinTo[i].minRotations)
-            if (this.numRotations[i] >= this.spinTo[i].minRotations) {
+            if (this.numRotations[i] >= this.spinTo[i].minRotations &&  reelY >= targetY && reelY < targetY + this.spinDeltaY) {
                 console.log("foo")
                 this.spinning[i] = false;
                 //this.setSymbol(i);
@@ -190,6 +192,10 @@ class SlotMachine {
 
 
 
+
+
+        this.setTarget(reelIndex);
+
         var blurFilter = new createjs.BlurFilter(10, 10, 1);
         container.filters = [blurFilter];
         //var bounds = blurFilter.getBounds();
@@ -201,6 +207,14 @@ class SlotMachine {
         //container.filters = []
         //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height)
         return container;
+    }
+
+    setTarget(reelIndex) {
+        const reelIds = REEL_CONFIG[reelIndex];
+        const symbol = this.spinTo[reelIndex].symbol;
+        const symbolIndex = reelIds.indexOf(symbol);
+        this.spinTo[reelIndex].targetY = -this.reelWidth * symbolIndex
+        console.log(symbol, symbolIndex, this.spinTo[reelIndex].targetY);
     }
 
     run() {
