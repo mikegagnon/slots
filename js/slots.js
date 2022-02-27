@@ -8,8 +8,8 @@ const IMG_MANIFEST = [
 
 const REEL_CONFIG = [
     ["2xBAR", "3xBAR", "7", "BAR", "Cherry"],
-    ["Cherry", "Cherry", "7"],
-    ["7", "Cherry", "7"]
+    ["Cherry", "7", "2xBAR"],//, "BAR", "3xBAR"],
+    ["7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
 //const IMG_WIDTH
@@ -21,7 +21,7 @@ class SlotMachine {
         this.canvasWidth = canvas.width;
         this.canvasHeight = canvas.height;
         //this.spinReelDuration = 1000;
-        this.spinDeltaY = 1;
+        this.spinDeltaY = 5;
         this.slotsContainerId = slotsContainerId;
         this.slotsCanvasId = slotsCanvasId;
         this.tryAgainContainerId = tryAgainContainerId;
@@ -52,10 +52,15 @@ class SlotMachine {
 
         for (let i = 0; i < this.spinning.length; i++) {
             this.reels[i][0].y += this.spinDeltaY;
-            this.reels[i][1].y += this.spinDeltaY;
-
             if (this.reels[i][0].y > this.canvasHeight) {
-                this.reels[i][0].y = -this.reelHeight[i];// + this.canvasHeight;
+                //this.reels[i][0].y = -this.reelHeight[i] - this.reels[i][1].y ;// - this.canvasHeight;
+                this.reels[i][0].y = this.reels[i][1].y - this.reelHeight[i];
+            }
+
+            this.reels[i][1].y += this.spinDeltaY;
+            if (this.reels[i][1].y > this.canvasHeight) {
+                this.reels[i][1].y = this.reels[i][0].y - this.reelHeight[i];
+                //this.reels[i][1].y = -this.reelHeight[i] - this.reels[i][0].y // - this.canvasHeight;
             }
         }
 
