@@ -30,6 +30,7 @@ class SlotMachine {
         this.reels = [];
         this.reelHeight = [];
         this.spinning = undefined;
+        this.numRotations = [0, 0, 0];
         this.initStage();
         //this.loadBitmaps();
     }
@@ -63,11 +64,13 @@ class SlotMachine {
             if (this.reels[i][0].y > this.canvasHeight) {
                 //this.reels[i][0].y = -this.reelHeight[i] - this.reels[i][1].y ;// - this.canvasHeight;
                 this.reels[i][0].y = bottomY - this.reelHeight[i] + this.spinDeltaY;
+                this.numRotations[i] += 1;
             }
 
             this.reels[i][1].y += this.spinDeltaY;
             if (this.reels[i][1].y > this.canvasHeight) {
                 this.reels[i][1].y = topY - this.reelHeight[i] + this.spinDeltaY;
+                this.numRotations[i] += 1;
                 //this.reels[i][1].y = -this.reelHeight[i] - this.reels[i][0].y // - this.canvasHeight;
             }
         }
@@ -76,9 +79,9 @@ class SlotMachine {
 
     }
 
-    spin() {
+    spin(spinTo) {
         this.spinning = [true, true, true];
-
+        this.spinTo = spinTo;
 
     }
 
@@ -163,7 +166,7 @@ class SlotMachine {
         return container;
     }
 
-    run() {
+    run(spinTo) {
         //console.log(3)
         for (let i = 0; i < REEL_CONFIG.length; i++) {
             this.reels[i] = [this.createReel(i, 0), this.createReel(i, 1)];
@@ -175,7 +178,7 @@ class SlotMachine {
 
         this.stage.update();
 
-        this.spin();
+        this.spin(spinTo);
     }
 
     /*spin() {
@@ -195,6 +198,24 @@ class SlotMachine {
 function main() {
     const machine = new SlotMachine("slots-container", "slots-canvas", "try-again-container");
 
+    const SPIN_TO = {
+        0: {
+            placement: "top",
+            symbol: "3xBAR",
+            minRotations: 1,
+        },
+        1: {
+            placement: "top",
+            symbol: "3xBAR",
+            minRotations: 2,
+        },
+        2: {
+            placement: "top",
+            symbol: "3xBAR",
+            minRotations: 3,
+        },
+    };
+
     const queue = new createjs.LoadQueue();
     queue.on("complete", function(event) {
         //machine.images["7"] = new createjs.Bitmap(queue.getResult("7"));
@@ -204,7 +225,7 @@ function main() {
             machine.images[id] = new createjs.Bitmap(queue.getResult(id));
             //machine.stage.addChild(machine.images[id]);
         }
-        machine.run();
+        machine.run(SPIN_TO);
         // Do stuff with bitmap
     });
 
