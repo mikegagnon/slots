@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<!-- https://codepen.io/bichiko/pen/ZNbeYe -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=480,initial-scale=1, maximum-scale=1">
+    <title>Free fries?</title>
+    <link rel="icon" href="img/Cherry.png">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/slots.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="headline text-center">Free fries?</h1>
+    <div class="row justify-content-center mb-3" id="slots-container" style="display: non;">
+        <div class="col col-auto canvas-container">
+            <canvas id="slot" width="440" height="240"></canvas>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-3" id="try-again-container" style="display: non;">
+        <h2 class="text-center">Try again tomorrow</h2>
+    </div>
+
+    <center><button onclick="Cookies.remove('vtime')">Del cookie</button></center>
+</div>
+<script src="js/js.cookie.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/confetti.min.js"></script>
+<script src="js/slots.js"></script>
+</body>
+</html>
