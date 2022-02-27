@@ -21,7 +21,7 @@ class SlotMachine {
         this.canvasWidth = canvas.width;
         this.canvasHeight = canvas.height;
         //this.spinReelDuration = 1000;
-        this.spinDeltaY = 5;
+        this.spinDeltaY = 50;
         this.slotsContainerId = slotsContainerId;
         this.slotsCanvasId = slotsCanvasId;
         this.tryAgainContainerId = tryAgainContainerId;
@@ -77,7 +77,7 @@ class SlotMachine {
     }
 
     spin() {
-        this.spinning = [false, true, true];
+        this.spinning = [true, true, true];
 
 
     }
@@ -147,6 +147,19 @@ class SlotMachine {
         }
 
         container.x = this.reelWidth * reelIndex;
+
+
+
+        var blurFilter = new createjs.BlurFilter(10, 10, 1);
+        container.filters = [blurFilter];
+        //var bounds = blurFilter.getBounds();
+
+        var bounds = container.getBounds();
+
+        container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height)
+
+        //container.filters = []
+        //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height)
         return container;
     }
 
