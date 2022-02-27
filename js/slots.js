@@ -60,6 +60,7 @@ class SlotMachine {
             const bottomY = this.reels[i][1].y;
 
 
+
             this.reels[i][0].y += this.spinDeltaY;
             if (this.reels[i][0].y > this.canvasHeight) {
                 //this.reels[i][0].y = -this.reelHeight[i] - this.reels[i][1].y ;// - this.canvasHeight;
@@ -72,6 +73,24 @@ class SlotMachine {
                 this.reels[i][1].y = topY - this.reelHeight[i] + this.spinDeltaY;
                 this.numRotations[i] += 1;
                 //this.reels[i][1].y = -this.reelHeight[i] - this.reels[i][0].y // - this.canvasHeight;
+            }
+
+            /*let symbolTop;
+            let symbolMiddle;
+            let symbolBottom;
+            console.log(this.reels[i][0].y)*/
+            /*if (this.reels[i][0].y > 0 & this.reels[i][0] < this.spinDeltaY) {
+                this.spinning[i] = false;
+            } else {
+
+                //this.spinning[i] = false;
+            }*/
+
+
+            console.log(this.numRotations[i], this.spinTo[i].minRotations)
+            if (this.numRotations[i] >= this.spinTo[i].minRotations) {
+                console.log("foo")
+                this.spinning[i] = false;
             }
         }
 
