@@ -22,6 +22,7 @@ class SlotMachine {
         this.tryAgainContainerId = tryAgainContainerId;
         this.images = {};
         this.reelWidth = undefined;
+        this.reels = [];
         this.initStage();
         //this.loadBitmaps();
     }
@@ -69,7 +70,6 @@ class SlotMachine {
         const container = new createjs.Container();
         this.stage.addChild(container);
 
-
         let y = 0;
         let width = 0
         for (const imgId of reelIds) {
@@ -90,13 +90,18 @@ class SlotMachine {
         }
 
         container.x = this.reelWidth * index;
+        return container;
     }
 
     run() {
         console.log(3)
-        this.createReel(0);
-        this.createReel(1);
-        this.createReel(2);
+        for (let i = 0; i < REEL_CONFIG.length; i++) {
+            this.reels[i] = [this.createReel(i), this.createReel(i)];
+            this.reels[i][1].top = this.reels[i][0].height;            
+        }
+
+        //this.createReel(1);
+        //this.createReel(2);
 
         this.stage.update();
     }
