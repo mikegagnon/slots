@@ -16,7 +16,8 @@ const REEL_CONFIG = [
 
 class SlotMachine {
 
-    constructor(slotsContainerId, slotsCanvasId, tryAgainContainerId) {
+    constructor(slotsContainerId, slotsCanvasId, tryAgainContainerId, spinTo) {
+        this.spinTo = spinTo;
         const canvas = document.getElementById(slotsCanvasId);
         this.canvasWidth = canvas.width;
         this.canvasHeight = canvas.height;
@@ -91,6 +92,7 @@ class SlotMachine {
             if (this.numRotations[i] >= this.spinTo[i].minRotations) {
                 console.log("foo")
                 this.spinning[i] = false;
+                //this.setSymbol(i);
             }
         }
 
@@ -98,10 +100,17 @@ class SlotMachine {
 
     }
 
-    spin(spinTo) {
-        this.spinning = [true, true, true];
-        this.spinTo = spinTo;
+    /*setSymbol(index) {
+        const reelIds = REEL_CONFIG[index];
+        const spin = this.spinTo[index];
 
+        const dy = reelIds.indexOf(spin.symbol) * this.symbolHeight;
+
+        this.reels[index][0].y = -dy;
+    }*/
+
+    spin() {
+        this.spinning = [true, true, true];
     }
 
     /*loadBitmap(name) {
@@ -144,12 +153,14 @@ class SlotMachine {
         let width = 0
         let height = 0;
         let bmp = undefined;
+        let symbolHeight = 0;
         for (const imgId of reelIds) {
             bmp = this.images[imgId].clone();
             container.addChild(bmp);
             bmp.y = y
             y += bmp.image.height;
             width = Math.max(width, bmp.image.width);
+            symbolHeight = Math.max(symbolHeight, bmp.image.height);
             height += bmp.image.height; 
         }
 
@@ -161,6 +172,13 @@ class SlotMachine {
             console.log(this.reelWidth, width);
             throw "Bad width";
         }
+
+        if (height !== symbolHeight * reelIds.length) {
+            console.log(height, symbolHeight)
+            throw "Bad height";
+        }
+
+        this.symbolHeight = symbolHeight;
 
         this.reelHeight[reelIndex] = height;
 
@@ -185,7 +203,7 @@ class SlotMachine {
         return container;
     }
 
-    run(spinTo) {
+    run() {
         //console.log(3)
         for (let i = 0; i < REEL_CONFIG.length; i++) {
             this.reels[i] = [this.createReel(i, 0), this.createReel(i, 1)];
@@ -197,7 +215,7 @@ class SlotMachine {
 
         this.stage.update();
 
-        this.spin(spinTo);
+        this.spin();
     }
 
     /*spin() {
@@ -215,25 +233,29 @@ class SlotMachine {
 }
 
 function main() {
-    const machine = new SlotMachine("slots-container", "slots-canvas", "try-again-container");
 
     const SPIN_TO = {
         0: {
             placement: "top",
             symbol: "3xBAR",
             minRotations: 1,
+            targetY: undefined,
         },
         1: {
             placement: "top",
             symbol: "3xBAR",
             minRotations: 2,
+            targetY: undefined,
         },
         2: {
             placement: "top",
             symbol: "3xBAR",
             minRotations: 3,
+            targetY: undefined,
         },
     };
+
+    const machine = new SlotMachine("slots-container", "slots-canvas", "try-again-container", SPIN_TO);
 
     const queue = new createjs.LoadQueue();
     queue.on("complete", function(event) {
@@ -244,7 +266,7 @@ function main() {
             machine.images[id] = new createjs.Bitmap(queue.getResult(id));
             //machine.stage.addChild(machine.images[id]);
         }
-        machine.run(SPIN_TO);
+        machine.run();
         // Do stuff with bitmap
     });
 
