@@ -8,7 +8,7 @@ const IMG_MANIFEST = [
 
 const REEL_CONFIG = [
     ["2xBAR", "3xBAR", "7", "BAR", "Cherry"],
-    ["Cherry", "7", "2xBAR", "3xBAR"],//, "BAR", "3xBAR"],
+    ["3xBAR", "Cherry", "7", "2xBAR", "2xBAR"],//, "BAR", "3xBAR"],
     ["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
@@ -88,14 +88,18 @@ class SlotMachine {
             }*/
 
             const targetY = this.spinTo[i].targetY;
+            console.log( this.spinTo[i]);
             const reelY = this.reels[i][0].y;
 
             console.log(this.numRotations[i], this.spinTo[i].minRotations)
             if (this.numRotations[i] >= this.spinTo[i].minRotations &&  reelY >= targetY && reelY < targetY + this.spinDeltaY) {
-                console.log("foo")
+                this.reels[i][0].y = targetY;// + this.spinDeltaY;
+                console.log(targetY, this.reels[i][0].y);
                 this.spinning[i] = false;
                 //this.setSymbol(i);
             }
+                            //this.reels[i][0].y = targetY + 
+
         }
 
         this.stage.update();
@@ -211,9 +215,10 @@ class SlotMachine {
 
     setTarget(reelIndex) {
         const reelIds = REEL_CONFIG[reelIndex];
+        console.log("reelIds", reelIds)
         const symbol = this.spinTo[reelIndex].symbol;
         const symbolIndex = reelIds.indexOf(symbol);
-        this.spinTo[reelIndex].targetY = -this.reelWidth * symbolIndex
+        this.spinTo[reelIndex].targetY = -this.symbolHeight * symbolIndex
         console.log(symbol, symbolIndex, this.spinTo[reelIndex].targetY);
     }
 
@@ -252,19 +257,19 @@ function main() {
         0: {
             placement: "top",
             symbol: "3xBAR",
-            minRotations: 1,
+            minRotations: 2,
             targetY: undefined,
         },
         1: {
             placement: "top",
             symbol: "3xBAR",
-            minRotations: 2,
+            minRotations: 4,
             targetY: undefined,
         },
         2: {
             placement: "top",
             symbol: "3xBAR",
-            minRotations: 3,
+            minRotations: 6,
             targetY: undefined,
         },
     };
