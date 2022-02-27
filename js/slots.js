@@ -93,8 +93,10 @@ class SlotMachine {
 
             console.log(this.numRotations[i], this.spinTo[i].minRotations)
             if (this.numRotations[i] >= this.spinTo[i].minRotations &&  reelY >= targetY && reelY < targetY + this.spinDeltaY) {
+                const diff = this.reels[i][0].y - targetY 
                 this.reels[i][0].y = targetY;// + this.spinDeltaY;
-                this.reels[i][1].y -= this.spinDeltaY;
+                this.reels[i][1].y -= diff;
+                //this.reels[i][1].y -= this.spinDeltaY;
                 console.log(targetY, this.reels[i][0].y);
                 this.spinning[i] = false;
 
@@ -262,19 +264,19 @@ function main() {
 
     const SPIN_TO = {
         0: {
-            placement: "bottom",
+            placement: "top",
             symbol: "3xBAR",
             minRotations: 2,
             targetY: undefined,
         },
         1: {
-            placement: "bottom",
+            placement: "top",
             symbol: "3xBAR",
             minRotations: 4,
             targetY: undefined,
         },
         2: {
-            placement: "bottom",
+            placement: "top",
             symbol: "3xBAR",
             minRotations: 6,
             targetY: undefined,
