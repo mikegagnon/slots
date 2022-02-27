@@ -51,15 +51,19 @@ class SlotMachine {
         }
 
         for (let i = 0; i < this.spinning.length; i++) {
+            const topY = this.reels[i][0].y;
+            const bottomY = this.reels[i][1].y;
+
+
             this.reels[i][0].y += this.spinDeltaY;
             if (this.reels[i][0].y > this.canvasHeight) {
                 //this.reels[i][0].y = -this.reelHeight[i] - this.reels[i][1].y ;// - this.canvasHeight;
-                this.reels[i][0].y = this.reels[i][1].y - this.reelHeight[i];
+                this.reels[i][0].y = bottomY - this.reelHeight[i] + this.spinDeltaY;
             }
 
             this.reels[i][1].y += this.spinDeltaY;
             if (this.reels[i][1].y > this.canvasHeight) {
-                this.reels[i][1].y = this.reels[i][0].y - this.reelHeight[i];
+                this.reels[i][1].y = topY - this.reelHeight[i] + this.spinDeltaY;
                 //this.reels[i][1].y = -this.reelHeight[i] - this.reels[i][0].y // - this.canvasHeight;
             }
         }
