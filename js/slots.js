@@ -1,10 +1,13 @@
 const IMG_MANIFEST = [
     {src: "img/7.png", id: "7"},
     {src: "img/Cherry.png", id: "Cherry"},
+    {src: "img/BAR.png", id: "BAR"},
+    {src: "img/2xBAR.png", id: "2xBAR"},
+    {src: "img/3xBAR.png", id: "3xBAR"},
 ]
 
 const REEL_CONFIG = [
-    ["7", "7", "Cherry"],
+    ["2xBAR", "3xBAR", "7", "BAR", "Cherry"],
     ["Cherry", "Cherry", "7"],
     ["7", "Cherry", "7"]
 ];
@@ -91,8 +94,8 @@ class SlotMachine {
 
     run() {
         console.log(3)
-        //this.createReel(0);
-        //this.createReel(1);
+        this.createReel(0);
+        this.createReel(1);
         this.createReel(2);
 
         this.stage.update();
