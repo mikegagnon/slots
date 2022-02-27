@@ -227,7 +227,7 @@ class SlotMachine {
         } else if (this.spinTo[reelIndex].placement === "bottom") {
             this.spinTo[reelIndex].targetY = -this.symbolHeight * (symbolIndex - 1);
         } else {
-            this.spinTo[reelIndex].targetY = -this.symbolHeight * ((symbolIndex - 1) / 2);
+            this.spinTo[reelIndex].targetY = -this.symbolHeight * symbolIndex + this.symbolHeight / 2;
 
         }
         console.log(symbol, symbolIndex, this.spinTo[reelIndex].targetY);
