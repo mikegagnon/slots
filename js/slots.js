@@ -3,6 +3,14 @@ const IMG_MANIFEST = [
     {src: "img/Cherry.png", id: "Cherry"},
 ]
 
+const REEL_CONFIG = [
+    ["7", "7", "Cherry"],
+    ["Cherry", "Cherry", "7"],
+    ["7", "Cherry", "7"]
+];
+
+//const IMG_WIDTH
+
 class SlotMachine {
 
     constructor(slotsContainerId, slotsCanvasId, tryAgainContainerId) {
@@ -10,6 +18,7 @@ class SlotMachine {
         this.slotsCanvasId = slotsCanvasId;
         this.tryAgainContainerId = tryAgainContainerId;
         this.images = {};
+        this.reelWidth = undefined;
         this.initStage();
         //this.loadBitmaps();
     }
@@ -21,7 +30,7 @@ class SlotMachine {
         createjs.Ticker.addEventListener("tick", this.stage);
     }
 
-    loadBitmap(name) {
+    /*loadBitmap(name) {
         const bmp = new createjs.Bitmap(IMAGES[name]);
         const THIS = this;
         this.bmp.image.onload = function() {
@@ -50,10 +59,43 @@ class SlotMachine {
 
         }
 
+    }*/
+
+    createReel(index) {
+        const reelIds = REEL_CONFIG[index];
+        const container = new createjs.Container();
+        this.stage.addChild(container);
+
+
+        let y = 0;
+        let width = 0
+        for (const imgId of reelIds) {
+            const bmp = this.images[imgId].clone();
+            container.addChild(bmp);
+            bmp.y = y
+            y += bmp.image.height;
+            width = Math.max(width, bmp.image.width);
+        }
+
+        if (this.reelWidth == undefined) {
+            this.reelWidth = width;
+        }
+
+        if (this.reelWidth != width) {
+            console.log(this.reelWidth, width);
+            throw "Bad width";
+        }
+
+        container.x = this.reelWidth * index;
     }
 
     run() {
+        console.log(3)
+        //this.createReel(0);
+        //this.createReel(1);
+        this.createReel(2);
 
+        this.stage.update();
     }
 }
 
@@ -67,7 +109,7 @@ function main() {
             //src = record.src;
             id = record.id;
             machine.images[id] = new createjs.Bitmap(queue.getResult(id));
-            machine.stage.addChild(machine.images[id]);
+            //machine.stage.addChild(machine.images[id]);
         }
         machine.run();
         // Do stuff with bitmap
