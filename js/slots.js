@@ -100,6 +100,21 @@ class SlotMachine {
                 console.log(targetY, this.reels[i][0].y);
                 this.spinning[i] = false;
 
+                let container = this.reels[i][0];
+                container.filters = [];
+                container.updateCache();
+                container = this.reels[i][1];
+                container.filters = [];
+                container.updateCache();
+        //ar bounds = container.getBounds();
+        //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
+
+/*
+        container = this.reels[i][1];
+                container.filters = [];
+        var bounds = container.getBounds();
+        container.cache(-500+bounds.x, -500+bounds.y, 500+bounds.width, 500+bounds.height)*/
+
                 //this.setSymbol(i);
             }
                             //this.reels[i][0].y = targetY + 
@@ -278,7 +293,7 @@ function main() {
             targetY: undefined,
         },
         2: {
-            placement: "middle",
+            placement: "bottom",
             symbol: "3xBAR",
             minRotations: 6,
             targetY: undefined,
