@@ -130,6 +130,16 @@ class SlotMachine {
                 container = this.reels[i][1];
                 container.filters = [];
                 container.updateCache();
+
+                if (i == 2) {
+                    if (this.spinTo.victory) {
+                        const jsConfetti = new JSConfetti()
+                        setInterval(function(){
+                            jsConfetti.addConfetti()    
+                        }, 800)
+                    }
+                        
+                }
         //ar bounds = container.getBounds();
         //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
 
@@ -314,13 +324,16 @@ function main() {
         symbols = [symbol, symbol, symbol];
         const placement = shuffle(ALL_PLACEMENTS)[0];
         placements = [placement, placement, placement];
+        victory = true;
     } else {
         // hacky way to ensure no match. could be improved
         symbols = [REEL_CONFIG[0][0], REEL_CONFIG[0][1], REEL_CONFIG[0][2]];
         placements = [shuffle(ALL_PLACEMENTS)[0], shuffle(ALL_PLACEMENTS)[0], shuffle(ALL_PLACEMENTS)[0]];
+        victory = false;
     }
 
     const SPIN_TO = {
+        victory: victory,
         0: {
             placement: placements[0],
             symbol: symbols[0],
