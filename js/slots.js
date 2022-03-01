@@ -33,7 +33,8 @@ const REEL_CONFIG = [
     //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
-const PR_WIN = 0.5
+const PR_WIN = 0.5;
+
 
 //const IMG_WIDTH
 
@@ -302,23 +303,40 @@ class SlotMachine {
 
 function main() {
 
+    //let SPIN_TO = undefined;
+    const ALL_PLACEMENTS = ["top", "middle", "bottom"];
+    const MIN_ROTATIONS = [3,5,7];
+    let symbols = undefined;
+    let placements = undefined;
+
+    if (Math.random() < PR_WIN) {
+        const symbol = REEL_CONFIG[0][0];
+        symbols = [symbol, symbol, symbol];
+        const placement = shuffle(ALL_PLACEMENTS)[0];
+        placements = [placement, placement, placement];
+    } else {
+        // hacky way to ensure no match. could be improved
+        symbols = [REEL_CONFIG[0][0], REEL_CONFIG[0][1], REEL_CONFIG[0][2]];
+        placements = [shuffle(ALL_PLACEMENTS)[0], shuffle(ALL_PLACEMENTS)[0], shuffle(ALL_PLACEMENTS)[0]];
+    }
+
     const SPIN_TO = {
         0: {
-            placement: "middle",
-            symbol: "3xBAR",
-            minRotations: 2,
+            placement: placements[0],
+            symbol: symbols[0],
+            minRotations: MIN_ROTATIONS[0],
             targetY: undefined,
         },
         1: {
-            placement: "middle",
-            symbol: "3xBAR",
-            minRotations: 4,
+            placement: placements[1],
+            symbol: symbols[1],
+            minRotations: MIN_ROTATIONS[1],
             targetY: undefined,
         },
         2: {
-            placement: "middle",
-            symbol: "3xBAR",
-            minRotations: 6,
+            placement: placements[2],
+            symbol: symbols[2],
+            minRotations: MIN_ROTATIONS[2],
             targetY: undefined,
         },
     };
