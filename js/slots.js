@@ -313,6 +313,23 @@ class SlotMachine {
 
 function main() {
 
+    if(Cookies.get('vtime')) {
+        $("#try-again-container").css("display", "");
+        return;
+    }
+
+    $("#slots-container").css("display", "");
+
+    let expires;
+    const date = new Date();
+    //var dt = new Date();
+    //var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+    date.setDate(date.getDate() + 1);
+    expires = date;//.toGMTString();
+    Cookies.set('vtime', "good", { expires: expires});
+
+
+
     //let SPIN_TO = undefined;
     const ALL_PLACEMENTS = ["top", "middle", "bottom"];
     const MIN_ROTATIONS = [3,5,7];
