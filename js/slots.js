@@ -33,7 +33,7 @@ const REEL_CONFIG = [
     //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
-const PR_WIN = 0.5;
+const PR_WIN = 0.25;
 
 
 //const IMG_WIDTH
@@ -138,7 +138,7 @@ class SlotMachine {
                             jsConfetti.addConfetti()    
                         }, 800)
                     }
-                        
+
                 }
         //ar bounds = container.getBounds();
         //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
