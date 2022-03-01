@@ -320,13 +320,14 @@ function main() {
 
     $("#slots-container").css("display", "");
 
-    let expires;
-    const date = new Date();
-    //var dt = new Date();
-    //var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-    date.setDate(date.getDate() + 1);
-    expires = date;//.toGMTString();
-    Cookies.set('vtime', "good", { expires: expires});
+    // https://stackoverflow.com/questions/20683394/code-javascript-for-a-cookie-that-expires-at-midnight
+    // let expires;
+    // const date = new Date();
+    // date.setDate(date.getDate() + 1);
+    // expires = date;//.toGMTString();
+    var midnight = new Date();
+    midnight.setHours(23,59,59,0);
+    Cookies.set('vtime', "good", { expires: midnight});
 
 
 
