@@ -6,3 +6,7 @@ body {
 .canvas-container {
   border: 1px solid #bbb;
 }
+
+.headline {
+  color: gold;
+}

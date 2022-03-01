@@ -1,3 +1,22 @@
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
 const IMG_MANIFEST = [
     {src: "img/7.png", id: "7"},
     {src: "img/Cherry.png", id: "Cherry"},
@@ -7,10 +26,14 @@ const IMG_MANIFEST = [
 ]
 
 const REEL_CONFIG = [
-    ["2xBAR", "3xBAR", "7", "BAR", "Cherry"],
-    ["3xBAR", "Cherry", "7", "2xBAR", "2xBAR"],//, "BAR", "3xBAR"],
-    ["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
+    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"]),
+    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"]),
+    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"])
+    //shuffle(["3xBAR", "Cherry", "7", "2xBAR", "2xBAR"],//, "BAR", "3xBAR"],
+    //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
+
+const PR_WIN = 0.5
 
 //const IMG_WIDTH
 
@@ -88,16 +111,16 @@ class SlotMachine {
             }*/
 
             const targetY = this.spinTo[i].targetY;
-            console.log( this.spinTo[i]);
+            //console.log( this.spinTo[i]);
             const reelY = this.reels[i][0].y;
 
-            console.log(this.numRotations[i], this.spinTo[i].minRotations)
+            //console.log(this.numRotations[i], this.spinTo[i].minRotations)
             if (this.numRotations[i] >= this.spinTo[i].minRotations &&  reelY >= targetY && reelY < targetY + this.spinDeltaY) {
                 const diff = this.reels[i][0].y - targetY 
                 this.reels[i][0].y = targetY;// + this.spinDeltaY;
                 this.reels[i][1].y -= diff;
                 //this.reels[i][1].y -= this.spinDeltaY;
-                console.log(targetY, this.reels[i][0].y);
+                //console.log(targetY, this.reels[i][0].y);
                 this.spinning[i] = false;
 
                 let container = this.reels[i][0];
@@ -234,7 +257,7 @@ class SlotMachine {
 
     setTarget(reelIndex) {
         const reelIds = REEL_CONFIG[reelIndex];
-        console.log("reelIds", reelIds)
+        //console.log("reelIds", reelIds)
         const symbol = this.spinTo[reelIndex].symbol;
         const symbolIndex = reelIds.indexOf(symbol);
         if (this.spinTo[reelIndex].placement === "top") {
@@ -245,7 +268,7 @@ class SlotMachine {
             this.spinTo[reelIndex].targetY = -this.symbolHeight * symbolIndex + this.symbolHeight / 2;
 
         }
-        console.log(symbol, symbolIndex, this.spinTo[reelIndex].targetY);
+        //console.log(symbol, symbolIndex, this.spinTo[reelIndex].targetY);
     }
 
     run() {
@@ -293,7 +316,7 @@ function main() {
             targetY: undefined,
         },
         2: {
-            placement: "bottom",
+            placement: "middle",
             symbol: "3xBAR",
             minRotations: 6,
             targetY: undefined,
