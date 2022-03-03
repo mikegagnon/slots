@@ -1,0 +1,26 @@
+{
+  "name": "slots-003",
+  "version": "1.0.0",
+  "description": "php -S localhost:8000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "npm-watch": "^0.11.0"
+  },
+  "scripts": {
+      "build": "babel --presets es2015 source/ -d js",
+      "watch": "npm-watch"
+  },
+  "watch": {
+      "build": "source/*.js"
+  }
+}
