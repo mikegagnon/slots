@@ -45,6 +45,8 @@ const PR_WIN = 1;//0.25;
 class SlotMachine {
 
     constructor(slotsContainerId, slotsCanvasId, tryAgainContainerId, spinTo) {
+        this.jsConfetti = new JSConfetti()
+
         this.spinTo = spinTo;
         const canvas = document.getElementById(slotsCanvasId);
         this.canvasWidth = canvas.width;
@@ -145,10 +147,10 @@ class SlotMachine {
 
 
                 if (i == 2) {
+                    const THIS = this;
                     if (this.spinTo.victory) {
-                        const jsConfetti = new JSConfetti()
                         setInterval(function(){
-                            jsConfetti.addConfetti()    
+                            THIS.jsConfetti.addConfetti()    
                         }, 800)
                     }
 

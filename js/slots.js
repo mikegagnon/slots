@@ -38,6 +38,8 @@ var SlotMachine = function () {
     function SlotMachine(slotsContainerId, slotsCanvasId, tryAgainContainerId, spinTo) {
         _classCallCheck(this, SlotMachine);
 
+        this.jsConfetti = new JSConfetti();
+
         this.spinTo = spinTo;
         var canvas = document.getElementById(slotsCanvasId);
         this.canvasWidth = canvas.width;
@@ -73,6 +75,8 @@ var SlotMachine = function () {
     }, {
         key: "tick",
         value: function tick(event) {
+            var _this = this;
+
             if (this.spinning === undefined) {
                 return;
             }
@@ -135,25 +139,25 @@ var SlotMachine = function () {
                     container.updateCache();
 
                     if (i == 2) {
-                        if (this.spinTo.victory) {
-                            (function () {
-                                var jsConfetti = new JSConfetti();
+                        (function () {
+                            var THIS = _this;
+                            if (_this.spinTo.victory) {
                                 setInterval(function () {
-                                    jsConfetti.addConfetti();
+                                    THIS.jsConfetti.addConfetti();
                                 }, 800);
-                            })();
-                        }
+                            }
 
-                        this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
-                        this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
-                        this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
+                            _this.flats[0][0][_this.spinTo[0].symbol + "_flat"].visible = true;
+                            _this.flats[1][0][_this.spinTo[1].symbol + "_flat"].visible = true;
+                            _this.flats[2][0][_this.spinTo[2].symbol + "_flat"].visible = true;
 
-                        var _container = this.reels[0][0];
-                        _container.updateCache();
-                        _container = this.reels[1][0];
-                        _container.updateCache();
-                        _container = this.reels[2][0];
-                        _container.updateCache();
+                            var container = _this.reels[0][0];
+                            container.updateCache();
+                            container = _this.reels[1][0];
+                            container.updateCache();
+                            container = _this.reels[2][0];
+                            container.updateCache();
+                        })();
                     }
                     //ar bounds = container.getBounds();
                     //container.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
