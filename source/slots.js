@@ -22,6 +22,11 @@ const IMG_MANIFEST = [
     {src: "img/blueberry_outline.png", id: "B"},
     {src: "img/pineapple_outline.png", id: "C"},
     {src: "img/strawberry_outline.png", id: "D"},
+
+    {src: "img/banana_flat.png", id: "A_flat"},
+    {src: "img/blueberry_flat.png", id: "B_flat"},
+    {src: "img/pineapple_flat.png", id: "C_flat"},
+    {src: "img/strawberry_flat.png", id: "D_flat"},
 ]
 
 const REEL_CONFIG = [
@@ -32,7 +37,7 @@ const REEL_CONFIG = [
     //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
-const PR_WIN = 0.25;
+const PR_WIN = 1;//0.25;
 
 
 //const IMG_WIDTH
@@ -55,6 +60,7 @@ class SlotMachine {
         this.reelHeight = [];
         this.spinning = undefined;
         this.numRotations = [0, 0, 0];
+        this.flats = {};
         this.initStage();
         //this.loadBitmaps();
     }
@@ -123,12 +129,20 @@ class SlotMachine {
                 //console.log(targetY, this.reels[i][0].y);
                 this.spinning[i] = false;
 
+                console.log("d,", this.spinTo[i].symbol);
+                
                 let container = this.reels[i][0];
                 container.filters = [];
                 container.updateCache();
+                
+
+                console.log("x", this.spinTo[i]);
+
                 container = this.reels[i][1];
                 container.filters = [];
                 container.updateCache();
+
+
 
                 if (i == 2) {
                     if (this.spinTo.victory) {
@@ -137,6 +151,17 @@ class SlotMachine {
                             jsConfetti.addConfetti()    
                         }, 800)
                     }
+
+                    this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
+                    this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
+                    this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
+
+                let container = this.reels[0][0];
+                container.updateCache();
+                container = this.reels[1][0];
+                container.updateCache();
+                container = this.reels[2][0];
+                container.updateCache();
 
                 }
         //ar bounds = container.getBounds();
@@ -212,14 +237,42 @@ class SlotMachine {
         let height = 0;
         let bmp = undefined;
         let symbolHeight = 0;
+
+        if (this.flats[reelIndex] === undefined) {
+            this.flats[reelIndex] = {};
+            /*this.flats[reelIndex] = {
+                true : undefined,
+                false: undefined
+            };*/
+        }
+
+
+        if (this.flats[reelIndex][topOrBottom] === undefined) {
+            this.flats[reelIndex][topOrBottom] = {};
+        }
+
+        //console.l
+
+        console.log(this.flats)
+
         for (const imgId of reelIds) {
             bmp = this.images[imgId].clone();
             container.addChild(bmp);
             bmp.y = y
-            y += bmp.image.height;
             width = Math.max(width, bmp.image.width);
             symbolHeight = Math.max(symbolHeight, bmp.image.height);
+
+            const bmpFlat = this.images[imgId + "_flat"].clone();
+            container.addChild(bmpFlat);
+            bmpFlat.y = y
+            bmpFlat.visible = false;
+
+            y += bmp.image.height;
             height += bmp.image.height; 
+
+            this.flats[reelIndex][topOrBottom][imgId+"_flat"] = bmpFlat;
+
+            //flats[reelIds][imgId + "_flat"] = bmpFlat;
         }
 
         if (this.reelWidth == undefined) {
