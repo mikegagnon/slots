@@ -18,17 +18,16 @@ function shuffle(array) {
 }
 
 const IMG_MANIFEST = [
-    {src: "img/7.png", id: "7"},
-    {src: "img/Cherry.png", id: "Cherry"},
-    {src: "img/BAR.png", id: "BAR"},
-    {src: "img/2xBAR.png", id: "2xBAR"},
-    {src: "img/3xBAR.png", id: "3xBAR"},
+    {src: "img/banana_outline.png", id: "A"},
+    {src: "img/blueberry_outline.png", id: "B"},
+    {src: "img/pineapple_outline.png", id: "C"},
+    {src: "img/strawberry_outline.png", id: "D"},
 ]
 
 const REEL_CONFIG = [
-    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"]),
-    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"]),
-    shuffle(["2xBAR", "3xBAR", "7", "BAR", "Cherry"])
+    shuffle(["A", "B", "C", "D"]),
+    shuffle(["A", "B", "C", "D"]),
+    shuffle(["A", "B", "C", "D"]),
     //shuffle(["3xBAR", "Cherry", "7", "2xBAR", "2xBAR"],//, "BAR", "3xBAR"],
     //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
