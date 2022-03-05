@@ -1,3 +1,5 @@
+const SCALE = 0.823;
+
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -232,6 +234,8 @@ class SlotMachine {
     createReel(reelIndex, topOrBottom) {
         const reelIds = REEL_CONFIG[reelIndex];
         const container = new createjs.Container();
+
+
         this.stage.addChild(container);
 
         let y = 0;
@@ -259,18 +263,23 @@ class SlotMachine {
 
         for (const imgId of reelIds) {
             bmp = this.images[imgId].clone();
+            bmp.scaleX = SCALE;
+            bmp.scaleY = SCALE;
+
             container.addChild(bmp);
             bmp.y = y
-            width = Math.max(width, bmp.image.width);
-            symbolHeight = Math.max(symbolHeight, bmp.image.height);
+            width = Math.max(width, bmp.image.width) * SCALE;
+            symbolHeight = Math.max(symbolHeight, bmp.image.height * SCALE);
 
             const bmpFlat = this.images[imgId + "_flat"].clone();
+            bmpFlat.scaleX = SCALE;
+            bmpFlat.scaleY = SCALE;
             container.addChild(bmpFlat);
             bmpFlat.y = y
             bmpFlat.visible = false;
 
-            y += bmp.image.height;
-            height += bmp.image.height; 
+            y += bmp.image.height * SCALE;
+            height += bmp.image.height * SCALE; 
 
             this.flats[reelIndex][topOrBottom][imgId+"_flat"] = bmpFlat;
 
@@ -435,6 +444,9 @@ function main() {
             //src = record.src;
             const id = record.id;
             machine.images[id] = new createjs.Bitmap(queue.getResult(id));
+            //machine.images[id].scaleX = SCALE;
+            //machine.images[id].scaleY = SCALE;
+
             //machine.stage.addChild(machine.images[id]);
         }
         machine.run();
