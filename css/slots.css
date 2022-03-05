@@ -1,13 +1,21 @@
 body {
-  /*background-color: #86298f;*/
-  background-color: #000;
-  color: #bbb;
+  background-color: #86298f;
+  /*background-color: #000;*/
+  color: #fff;
 }
 
 .canvas-container {
   border: 1px solid #bbb;
+    background-color: #000;
+
 }
 
 .headline {
   color: gold;
+}
+
+canvas {
+    margin: 0px;
+    padding: 0px
+    background-color: #000;
 }
