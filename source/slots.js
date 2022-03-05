@@ -1,4 +1,4 @@
-const SCALE = 0.823;
+const SCALE = 0.5;
 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array) {
