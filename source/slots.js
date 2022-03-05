@@ -39,7 +39,7 @@ const REEL_CONFIG = [
     //shuffle(["3xBAR", "7", "2xBAR", "Cherry"]//, "BAR", "3xBAR"],
 ];
 
-const PR_WIN = 1;//0.25;
+const PR_WIN = 0.25;
 
 
 //const IMG_WIDTH
@@ -153,12 +153,12 @@ class SlotMachine {
                     if (this.spinTo.victory) {
                         setInterval(function(){
                             THIS.jsConfetti.addConfetti()    
-                        }, 800)
+                        }, 800);
+                        
+                        this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
+                        this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
+                        this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
                     }
-
-                    this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
-                    this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
-                    this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
 
                 let container = this.reels[0][0];
                 container.updateCache();

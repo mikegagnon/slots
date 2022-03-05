@@ -31,8 +31,7 @@ var IMG_MANIFEST = [{ src: "img/banana_outline.png", id: "A" }, { src: "img/blue
 
 var REEL_CONFIG = [shuffle(["A", "B", "C", "D"]), shuffle(["A", "B", "C", "D"]), shuffle(["A", "B", "C", "D"])];
 
-var PR_WIN = 1; //0.25;
-
+var PR_WIN = 0.25;
 
 //const IMG_WIDTH
 
@@ -147,11 +146,11 @@ var SlotMachine = function () {
                                 setInterval(function () {
                                     THIS.jsConfetti.addConfetti();
                                 }, 800);
-                            }
 
-                            _this.flats[0][0][_this.spinTo[0].symbol + "_flat"].visible = true;
-                            _this.flats[1][0][_this.spinTo[1].symbol + "_flat"].visible = true;
-                            _this.flats[2][0][_this.spinTo[2].symbol + "_flat"].visible = true;
+                                _this.flats[0][0][_this.spinTo[0].symbol + "_flat"].visible = true;
+                                _this.flats[1][0][_this.spinTo[1].symbol + "_flat"].visible = true;
+                                _this.flats[2][0][_this.spinTo[2].symbol + "_flat"].visible = true;
+                            }
 
                             var container = _this.reels[0][0];
                             container.updateCache();
