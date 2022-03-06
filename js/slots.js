@@ -379,6 +379,15 @@ var SlotMachine = function () {
 
 function main() {
 
+    var maxWidth = 141 * 3;
+    var maxHeight = 121 * 2;
+    var widthToHeight = maxWidth / maxHeight;
+    var windowWidth = Math.min(window.innerWidth, maxWidth);
+    var canvasWidth = windowWidth;
+    var canvasHeight = canvasWidth * widthToHeight;
+
+    console.log(windowWidth, canvasHeight);
+
     if (Cookies.get('vtime')) {
         $("#try-again-container").css("display", "");
         return;

@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=480,initial-scale=1, maximum-scale=1">
-    <title>Free fries?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Win a free snack!</title>
     <link rel="icon" href="img/strawberry_flat.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/slots.css">
@@ -12,17 +12,17 @@
 <body>
 <div>
     <center>
-    <h1 class="headline text-center" style="margin-top: 10px;"><img src="img/slot_header.png"></h1>
-    <div class="row justify-content-center mb-3" id="slots-container" style="display: none;">
-        <div class="col col-auto canvas-container">
+    <h1 tyle="margin-top: 10px;"><img src="img/slot_header.png"></h1>
+    <div id="slots-container" style="display: none;">
+        <div>
             <canvas id="slots-canvas" width="309" height="176"></canvas>
         </div>
     </div>
-    <div class="row justify-content-center mb-3" id="try-again-container" style="display: none;">
-        <h1 class="text-center">Try again tomorrow!</h1>
+    <div id="try-again-container" style="display: none;">
+        <h1>Try again tomorrow!</h1>
     </div>
     </center>
-    <!--<center><button onclick="Cookies.remove('vtime')">Del cookie</button></center>-->
+    <center><button onclick="Cookies.remove('vtime')">Del cookie</button></center>
 </div>
 <script src="js/createjs.min.js"></script>
 <script src="js/js.cookie.min.js"></script>

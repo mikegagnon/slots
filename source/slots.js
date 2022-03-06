@@ -154,7 +154,7 @@ class SlotMachine {
                         setInterval(function(){
                             THIS.jsConfetti.addConfetti()    
                         }, 800);
-                        
+
                         this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
                         this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
                         this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
@@ -375,6 +375,17 @@ class SlotMachine {
 }
 
 function main() {
+
+
+    const maxWidth = 141 * 3;
+    const maxHeight = 121 * 2;
+    const widthToHeight = maxWidth / maxHeight;
+    const windowWidth = Math.min(window.innerWidth, maxWidth);
+    const canvasWidth = windowWidth;
+    const canvasHeight = canvasWidth * widthToHeight;
+
+
+    console.log(windowWidth, canvasHeight);
 
     if(Cookies.get('vtime')) {
         $("#try-again-container").css("display", "");
