@@ -158,6 +158,9 @@ class SlotMachine {
                         this.flats[0][0][this.spinTo[0].symbol + "_flat"].visible = true;
                         this.flats[1][0][this.spinTo[1].symbol + "_flat"].visible = true;
                         this.flats[2][0][this.spinTo[2].symbol + "_flat"].visible = true;
+
+                        $("#you-win-container").css("display", "");
+
                     }
 
                 let container = this.reels[0][0];
@@ -391,6 +394,7 @@ function main() {
         $("#try-again-container").css("display", "");
         return;
     }
+    
 
     $("#slots-container").css("display", "");
 

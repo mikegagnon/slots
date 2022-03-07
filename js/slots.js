@@ -150,6 +150,8 @@ var SlotMachine = function () {
                                 _this.flats[0][0][_this.spinTo[0].symbol + "_flat"].visible = true;
                                 _this.flats[1][0][_this.spinTo[1].symbol + "_flat"].visible = true;
                                 _this.flats[2][0][_this.spinTo[2].symbol + "_flat"].visible = true;
+
+                                $("#you-win-container").css("display", "");
                             }
 
                             var container = _this.reels[0][0];
